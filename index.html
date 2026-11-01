@@ -341,7 +341,7 @@ function barres(idConteneur, totaux) {
     || "<p>Aucune donnée.</p>";
 }
 
-// Courbe d'évolution dessinée en SVG : un point par rentrée.
+// Barres groupées par sexe : pour chaque valeur du champ choisi (niveau, // catégorie...), une barre rouge pour les femmes et une bleue pour les hommes. function barresSexe(idConteneur, lignes, champ) {   const groupes = {};   for (const d of lignes) {     const g = groupes[d[champ]] ??= { Femmes: 0, Hommes: 0 };     g.Femmes += d.femmes;     g.Hommes += d.effectif - d.femmes;      // hommes = total - femmes   }   const max = Math.max(...Object.values(groupes).flatMap(g => [g.Femmes, g.Hommes]), 1);   const couleurs = { Femmes: "#C7102C", Hommes: "#003F7D" };   document.getElementById(idConteneur).innerHTML =     `<p><span class="pastille" style="background:#C7102C"></span>Femmes         <span class="pastille" style="background:#003F7D; margin-left:12px"></span>Hommes</p>` +     Object.keys(groupes).sort().map(nom => `<div style="margin-bottom:8px">` +       ["Femmes", "Hommes"].map((sexe, i) =>         `<div class="barre"><span class="nom">${i === 0 ? echapper(nom) : ""}</span>            <span class="val" style="width:${(45 * groupes[nom][sexe] / max).toFixed(1)}%; background:${couleurs[sexe]}"></span>${fmt(groupes[nom][sexe])}</div>`       ).join("") + `</div>`).join(""); } : un point par rentrée.
 function courbe(idConteneur, totauxParAnnee) {
   const annees = Object.keys(totauxParAnnee).map(Number).sort();
   const el = document.getElementById(idConteneur);
