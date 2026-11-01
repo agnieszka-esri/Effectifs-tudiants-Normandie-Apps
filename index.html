@@ -438,7 +438,7 @@ function dessinerSynthese() {
   courbe("s-evolution", regrouper(filtrer(false), "rentree"));
   barres("s-categorie", regrouper(lignes, "categorie"));
   barres("s-secteur", regrouper(lignes, "secteur"));
-  barres("s-niveau", regrouper(lignes, "niveau"));
+    barresSexe("s-sexe-niveau", lignes, "niveau");, regrouper(lignes, "niveau"));
 }
 
 // =============================================================================
